@@ -16,7 +16,7 @@ public class AiService {
 
     public String askAi(String userPrompt) {
         var request = new GroqRequest(
-                "llama-3.1-8b-instant",
+                groqProperties.model(),
                 List.of(new GroqRequest.Message("user", userPrompt))
         );
 
