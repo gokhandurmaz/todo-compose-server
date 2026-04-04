@@ -11,7 +11,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class AiService {
-
     private final GroqClient groqClient;
     private final GroqProperties groqProperties;
 
