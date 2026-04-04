@@ -1,7 +1,7 @@
 package com.flowintent.todo_compose_server.service;
 
 import com.flowintent.todo_compose_server.client.GroqClient;
-import com.flowintent.todo_compose_server.config.AiConfig;
+import com.flowintent.todo_compose_server.config.GroqProperties;
 import com.flowintent.todo_compose_server.dto.GroqRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,16 +13,18 @@ import java.util.List;
 public class AiService {
 
     private final GroqClient groqClient;
-    private final AiConfig aiConfig;
+    private final GroqProperties groqProperties;
 
     public String askAi(String userPrompt) {
         var request = new GroqRequest(
-            "llama-3.1-8b-instant",
-            List.of(new GroqRequest.Message("user", userPrompt))
+                "llama-3.1-8b-instant",
+                List.of(new GroqRequest.Message("user", userPrompt))
         );
 
-        var response = groqClient.getCompletion(aiConfig.getApiKey(), request);
-        
-        return response.choices().get(0).message().content();
+        String authHeader = "Bearer " + groqProperties.key();
+
+        var response = groqClient.getCompletion(authHeader, request);
+
+        return response.choices().getFirst().message().content();
     }
 }

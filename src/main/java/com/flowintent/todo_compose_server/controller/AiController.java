@@ -2,6 +2,7 @@ package com.flowintent.todo_compose_server.controller;
 
 import com.flowintent.todo_compose_server.service.AiService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AiController {
 
+    @Autowired
     private final AiService aiService;
 
     @PostMapping("/chat")
